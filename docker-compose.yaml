@@ -1,0 +1,23 @@
+services:
+  app_sh:
+    build: .
+    volumes:
+      - ./:/app
+    environment:
+      - WATCHPACK_POLLING=true
+    stdin_open: true
+    tty: true
+    entrypoint: ["/bin/sh"]
+
+  app:
+    build: .
+    volumes:
+      - ./:/app
+      # - /app/node_modules
+    ports:
+      - "8081:8081"
+    expose:
+      - 8081
+    environment:
+      - WATCHPACK_POLLING=true
+    command: ["npm", "run", "dev"]
